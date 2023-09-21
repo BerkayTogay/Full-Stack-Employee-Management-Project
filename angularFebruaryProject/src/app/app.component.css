@@ -1,0 +1,31 @@
+#navbarGeneral
+{
+    font-weight: 400;
+}
+
+#navbarContainer
+{
+    background-color: #e3f2fd ;
+}
+.navbar-nav
+{
+    text-transform : uppercase; letter-spacing:1.5px; font-size:1.7rem !important;
+}
+
+.navbar-brand:hover
+{
+    transition: 0.2s ease-in-out;
+    color:azure;
+    opacity: 0.85;
+}
+
+#appNavbar
+{
+    margin-left: 50px !important;
+}
+
+#userNavbar
+{
+    margin-left: auto;
+    margin-right: 50px !important;
+}

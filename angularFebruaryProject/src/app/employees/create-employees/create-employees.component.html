@@ -1,0 +1,338 @@
+<form class="mt-3" [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+    <div class="row col-11">
+        <div class="container col-md-8">
+            <div class="card mb-3 shadow ms-2">
+                <div class="card-header">
+                    <h4 class="card-title text-center p-1">{{pageTitle}}</h4>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <tabset type="pills" #employeeTabs>
+                            <tab heading="personal">
+                                <hr>
+                                <div class="row ms-2 mt-3">
+                                    <div class="col-sm-3 col-xs-3 is-invalid">
+                                        <label for="fullName" class="form-control">Full Name :</label>
+                                    </div>
+                                    <div class="col-sm-8 col-xs-8">
+                                        <input type="text" class="form-control" id="fullName" formControlName="fullName"
+                                            (blur)="logValidationErrors()" [(ngModel)]="employeeView.fullName"
+                                            [ngClass]="{'is-invalid': validationHolder.formErrors.fullName && employeeView.fullName!=null,
+                                                                                    'is-valid': employeeForm.get('fullName').dirty}">
+                                        <span class="text-danger"
+                                            *ngIf="validationHolder.formErrors.fullName && employeeView.fullName!=null">
+                                            {{validationHolder.formErrors.fullName}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row ms-2 mt-3">
+                                    <div class="col-sm-3 col-xs-3">
+                                        <label for="startingDate" class="form-control">Starting Date</label>
+                                    </div>
+                                    <div class="col-sm-8 col-xs-8">
+                                        <div class="col-xs-12 col-12 col-md-4 form-group">
+                                            <input type="text" id="startingDate" placeholder="DD-MM-YYYY"
+                                                class="form-control" bsDatepicker formControlName="startingDate"
+                                                [bsConfig]="{containerClass:'theme-dark-blue',
+                                                            dateInputFormat:'DD-MM-YYYY'}">
+                                        </div>
+                                        <span class="text-danger"
+                                            *ngIf="validationHolder.formErrors.startingDate &&
+                                        employeeView.startingDate!=null">{{validationHolder.formErrors.startingDate}}</span>
+                                    </div>
+                                </div>
+                                <div class="row ms-2 mt-3">
+                                    <div class="col-sm-3 col-xs-3">
+                                        <label for="department" class="form-control">Contact Preference :</label>
+                                    </div>
+                                    <div class="col-sm-5 col-xs-6">
+                                        <div class="input-group mt-2 border-bottom">
+                                            <label class="radio-inline me-3">
+                                                <input type="radio" class="form-check-input" id="email"
+                                                    formControlName="contactPreference" value="email"
+                                                    [(ngModel)]="employeeView.contactPreference"> Email
+                                            </label>
+                                            <label class="radio-inline me-3">
+                                                <input type="radio" class="form-check-input" id="phone"
+                                                    formControlName="contactPreference" value="phone"
+                                                    [(ngModel)]="employeeView.contactPreference"> Phone
+                                            </label>
+                                            <span class="text-danger"
+                                                *ngIf="validationHolder.formErrors.proficiency &&
+                                                employeeView.contactPreference!=null">{{validationHolder.formErrors.contactPreference}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="employeeView.contactPreference==='email'; then email else phone"></div>
+                                <ng-template #email>
+                                <div formGroupName="emailGroup">
+                                    <div class="row ms-2 mt-3">
+                                        <div class="col-sm-3 col-xs-3">
+                                            <label for="email" class="form-control">Email :</label>
+                                        </div>
+                                        <div class="col-sm-8 col-xs-8">
+                                            <input type="text" class="form-control" id="email" formControlName="email"
+                                                placeholder="@hotmail/gmail/outlook/apple.com"
+                                                (blur)="logValidationErrors()" [ngClass]="{'is-invalid': validationHolder.formErrors.email &&
+                                                            employeeView.email!=null}"
+                                                [(ngModel)]="employeeView.email">
+                                            <span class="text-danger" *ngIf="validationHolder.formErrors.email &&
+                                            employeeView.email!=null">
+                                                {{validationHolder.formErrors.email}}
+                                            </span>
+                                            <span class="text-danger" *ngIf="validationHolder.formErrors.email.pattern">
+                                                {{validationHolder.formErrors.email.pattern}}
+                                            </span>
+                                            <span class="text-danger"
+                                                *ngIf="validationHolder.formErrors.email.emailDomain">
+                                                {{validationHolder.formErrors.email.emailDomain}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row ms-2 mt-3">
+                                        <div class="col-sm-3 col-xs-3">
+                                            <label for="email" class="form-control">Confirm Email :</label>
+                                        </div>
+                                        <div class="col-sm-8 col-xs-8">
+                                            <input type="text" class="form-control" id="confirmEmail"
+                                                formControlName="confirmEmail" (blur)="logValidationErrors()"
+                                                [ngClass]="{'is-invalid': (validationHolder.formErrors.confirmEmail ||
+                                                                            validationHolder.formErrors.emailGroup) &&
+                                                                            employeeView.confirmEmail!=null }">
+                                            <span class="text-danger" *ngIf="(validationHolder.formErrors.confirmEmail ||
+                                                                            validationHolder.formErrors.emailGroup) &&
+                                                                            employeeView.confirmEmail!=null">
+                                                {{validationHolder.formErrors.confirmEmail ?
+                                                validationHolder.formErrors.confirmEmail :
+                                                validationHolder.formErrors.emailGroup}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                </ng-template>
+
+                                <ng-template #phone>
+                                <div class="row ms-2 mt-3">
+                                    <div class="col-sm-3 col-xs-3">
+                                        <label for="phone" class="form-control">Phone</label>
+                                    </div>
+                                    <div class="col-sm-8 col-xs-8">
+                                        <input type="tel" class="form-control" id="email" formControlName="phone"
+                                            placeholder="555-555-55-55" (blur)="logValidationErrors()" [ngClass]="{'is-invalid': validationHolder.formErrors.phone &&
+                                                        employeeView.phone!=null,
+                                                        'is-valid': employeeForm.get('phone').dirty}"
+                                            [(ngModel)]="employeeView.phone">
+                                        <span class="text-danger" *ngIf="validationHolder.formErrors.phone &&
+                                                                        employeeView?.phone!=null">
+                                            {{validationHolder.formErrors.phone}}
+                                        </span>
+                                    </div>
+                                </div>
+                                </ng-template>
+
+                                <div class="row ms-2 mt-3">
+                                  <div class="col-sm-3 col-xs-3">
+                                    <label for="city" class="form-control">City</label>
+                                  </div>
+                                  <div class="col-sm-5 col-xs-6">
+                                    <select formControlName="city"
+                                    [(ngModel)]="employeeView.city">
+                                    <option *ngFor="let city of cityList" value={{city}} class="form-control">
+                                      {{city.name}}
+                                    </option>
+                                  </select>
+                                  </div>
+                                </div>
+
+                                <div class="row ms-2 mt-3">
+                                    <div class="col-sm-3 col-xs-3">
+                                        <label for="fullName" class="form-control">Gender :</label>
+                                    </div>
+                                    <div class="col-sm-5 col-xs-6"
+                                        [ngClass]="{'alert alert-danger': validationHolder.formErrors.gender &&
+                                                                          employeeView.gender!=null}">
+                                        <div class="input-group mt-2 border-bottom">
+                                            <label class="radio-inline me-3">
+                                                <input type="radio" class="form-check-input" id="female"
+                                                    formControlName="gender" value="female"
+                                                    [(ngModel)]="employeeView.gender"> Female
+                                            </label>
+                                            <label class="radio-inline me-3">
+                                                <input type="radio" class="form-check-input" id="male"
+                                                    formControlName="gender" value="male"
+                                                    [(ngModel)]="employeeView.gender"> Male
+                                            </label>
+
+                                            <span class="text-danger" *ngIf="validationHolder.formErrors.gender &&
+                                                                            employeeView.gender!=null">
+                                                {{validationHolder.formErrors.gender}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row ms-2 mt-3">
+                                    <div class="col-sm-3 col-xs-3">
+                                        <label for="fullName" class="form-control">Salary :</label>
+                                    </div>
+                                    <div class="col-sm-8 col-xs-8">
+                                        <input type="number" class="form-control" id="salary" formControlName="salary"
+                                            placeholder="10.000 $/₺/€">
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary btn-block float-end me-3 mt-3" type="button"
+                                    (click)="clearAllData()">Clear</button>
+                                <button class="btn btn-primary btn-block float-end me-3 mt-3" type="button"
+                                    (click)="selectTab(1)">Next</button>
+                            </tab>
+                            <tab heading="skills">
+                                <hr>
+                                <button class="btn btn-primary text btn-sm mt-3" (click)="addSkillButtonClick()"
+                                    [disabled]="employeeForm.get('departmentAndSkills').invalid">Add Skills</button>
+                                <div formArrayName="departmentAndSkills" class="mb-3"
+                                    *ngFor="let skill of getControlForSkills(); let i=index">
+                                    <!-- when we made binding, we must use '[]' for bindin element (here, we binded 'i' and used [])-->
+                                    <!-- property binding : with using '[]' -- ['department'+i]
+                                 interpolation : with using '{{}}' -- {{'department'+i}}
+                                 attribute binding : with using '' -->
+                                    <!-- for attribute (not for loop), does not have DOM property, so we cannot use '[]' when we mading property binding
+                                    we must use attribute binding -->
+                                    <div [formGroupName]="i">
+                                        <hr *ngIf="i>0" style="border: 1px solid black !important;">
+                                        <div class="row ms-2 mt-3" [ngClass]="{'alert alert-danger': skill.get('department').invalid &&
+                                                                        skill.get('department').touched}">
+                                            <div class="col-sm-3 col-xs-3">
+                                                <label [attr.for]="'department'+i" class="form-control">Department
+                                                    :</label>
+                                            </div>
+                                            <div class="col-sm-8 col-xs-8">
+                                                <input type="text" class="form-control" [id]="'department'+i"
+                                                    formControlName="department" placeholder="IT/HR">
+                                                <span class="text-danger"
+                                                    *ngIf="(skill.get('department').errors?.['required'] ||
+                                                                        skill.get('department').pristine)
+                                                                        && employeeView.departmentAndSkills!=null">
+                                                    department is required</span>
+                                            </div>
+                                            <div class="col-sm-1 col-xs-1"
+                                                *ngIf="employeeForm.get('departmentAndSkills').value.length>1">
+                                                <button class="btn btn-danger float-right"
+                                                    title="Delete Department & Skills Column"
+                                                    (click)="removeSkillButtonClick(i)">
+                                                    <span>X</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row ms-2 mt-3" [ngClass]="{'alert alert-danger': skill.get('skills').invalid &&
+                                                                        skill.get('skills').touched}">
+                                            <div class="col-sm-3 col-xs-3">
+                                                <label [attr.for]="'skills'+i" class="form-control">Skills :</label>
+                                            </div>
+                                            <div class="col-sm-8 col-xs-8">
+                                                <div class="input-group">
+                                                    <select [id]="'skills'+i" class="form-select"
+                                                        formControlName="skills">
+                                                        <option value="C#">C#</option>
+                                                        <option value=".NET">.NET</option>
+                                                        <option value="Angular">Angular</option>
+                                                        <option value="Javascript">JavaScript</option>
+                                                        <option value="Other">Other</option>
+                                                    </select>
+
+                                                </div>
+                                                <span class="text-danger"
+                                                    *ngIf="(skill.get('skills').errors?.['required'] &&
+                                                                        skill.get('skills').touched) && employeeView.departmentAndSkills!=null">
+                                                    skills are required
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row ms-2 mt-3" [ngClass]="{'alert alert-danger': skill.get('experience').invalid &&
+                                                                        skill.get('experience').touched}">
+                                            <div class="col-sm-3 col-xs-3">
+                                                <label [attr.for]="'experience'+i" class="form-control">Experience
+                                                    :</label>
+                                            </div>
+                                            <div class="col-sm-8 col-xs-8">
+                                                <input type="text" class="form-control" [id]="'experience'+i"
+                                                    formControlName="experience" placeholder="0">
+                                                <span class="text-danger"
+                                                    *ngIf="(skill.get('experience').errors?.['required'] &&
+                                                                        skill.get('experience').touched) && employeeView.departmentAndSkills!=null">
+                                                    experience is required
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row ms-2 mt-3" [ngClass]="{'alert alert-danger': skill.get('proficiency').invalid &&
+                                                                        skill.get('proficiency').touched}">
+                                            <div class="col-sm-3 col-xs-3">
+                                                <label [attr.for]="'proficiency'+i" class="form-control">Proficiency
+                                                    :</label>
+                                            </div>
+                                            <div class="col-sm-6 col-xs-6">
+                                                <div class="input-group mt-2 border-bottom">
+                                                    <label class="radio-inline me-3">
+                                                        <input type="radio" class="form-check-input" id="proficiency"
+                                                            formControlName="proficiency" value="beginner">
+                                                        Beginner
+                                                    </label>
+                                                    <label class="radio-inline me-3">
+                                                        <input type="radio" class="form-check-input" id="proficiency"
+                                                            formControlName="proficiency" value="intermediate">
+                                                        Intermediate
+                                                    </label>
+                                                    <label class="radio-inline me-3">
+                                                        <input type="radio" class="form-check-input" id="proficiency"
+                                                            formControlName="proficiency" value="advanced">
+                                                        Advanced
+                                                    </label>
+                                                    <span class="text-danger" *ngIf="(skill.get('proficiency').errors?.['required'] &&
+                                                                            skill.get('proficiency').touched) &&
+                                                                            employeeView.departmentAndSkills!=null">
+                                                        proficiency is required</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer mt-5">
+                                    <button class="btn btn-primary" (click)="selectTab(0)" type="button">Back</button>
+                                    <button class="btn btn-primary float-end me-3" type="submit"
+                                        [disabled]="employeeForm.invalid">Create</button>
+                                    <button class="btn btn-primary btn-block float-end me-3" type="button"
+                                        (click)="clearAllData()">Clear</button>
+
+                                    <!--<button class="btn btn-outline-primary float-end me-3" type="button"
+                            (click)="onLoadDefaultDataClick()">Load</button>
+                            -->
+                                </div>
+                            </tab>
+                        </tabset>
+                    </div>
+                    <!--we made property binding for disable button until every form group and controls are filled-->
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h4 class="card-title text-center">User Preview</h4>
+                    <div *ngIf="employeeView.gender==='female' then female"></div>
+                    <div *ngIf="employeeView.gender==='male' then male"></div>
+                    <ng-template #female>
+                        <img src="../../../assets/images/female.png" class="card-img-top">
+                    </ng-template>
+                    <ng-template #male>
+                        <img src="../../../assets/images/male.png" class="card-img-top">
+                    </ng-template>
+                </div>
+                <div class="card-body text-center">
+                    <h5>{{employeeView.fullName}}</h5>
+                    <h5>{{employeeView.contactPreference}}</h5>
+                    <h5>{{employeeView.email}}</h5>
+                    <h5>{{employeeView.phone}}</h5>
+                    <h5>{{employeeView.gender}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

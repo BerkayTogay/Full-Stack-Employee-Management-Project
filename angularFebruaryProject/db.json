@@ -1,0 +1,142 @@
+{
+  "employees": [
+    {
+      "id": 1,
+      "fullName": "berkay togay",
+      "startingDate": "01/04/2023",
+      "contactPreference": "email",
+      "email": "berkaytogay@hotmail.com",
+      "confirmEmail": "berkaytogay@hotmail.com",
+      "phone": "",
+      "salary": 14000,
+      "gender": "male",
+      "departmentAndSkills": [
+        {
+          "department": "IT",
+          "skills": "C#",
+          "experience": "2",
+          "proficiency": "intermediate"
+        },
+        {
+          "department": "HR",
+          "skills": ".NET",
+          "experience": "2",
+          "proficiency": "intermediate"
+        },
+        {
+          "department": "IT",
+          "skills": "Angular",
+          "experience": "2",
+          "proficiency": "intermediate"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "fullName": "adnan",
+      "startingDate": "2023-04-03T13:11:09.000Z",
+      "contactPreference": "email",
+      "email": "adnan@hotmail.com",
+      "confirmEmail": "adnan@hotmail.com",
+      "phone": null,
+      "gender": "male",
+      "salary": 13000,
+      "departmentAndSkills": [
+        {
+          "department": "IT",
+          "skills": "Angular",
+          "experience": "2",
+          "proficiency": "intermediate"
+        },
+        {
+          "department": "HR",
+          "skills": "C#",
+          "experience": "2",
+          "proficiency": "intermediate"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "fullName": "gudubet@hotmail.com",
+      "startingDate": "2023-04-06T13:44:59.000Z",
+      "contactPreference": "email",
+      "email": "gudubet@hotmail.com",
+      "confirmEmail": "gudubet@hotmail.com",
+      "phone": null,
+      "gender": "male",
+      "salary": 14000,
+      "departmentAndSkills": [
+        {
+          "department": "IT",
+          "skills": "Javascript",
+          "experience": "3",
+          "proficiency": "intermediate"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "fullName": "deneme",
+      "startingDate": "2023-05-03T19:06:56.000Z",
+      "contactPreference": "email",
+      "email": "deneme@hotmail.com",
+      "city": [
+        {
+          "id": 1,
+          "name": "mersin"
+        },
+        {
+          "id": 2,
+          "name": "adana"
+        },
+        {
+          "id": 3,
+          "name": "antalya"
+        },
+        {
+          "id": 4,
+          "name": "ankara"
+        },
+        {
+          "id": 5,
+          "name": "istanbul"
+        }
+      ],
+      "confirmEmail": "deneme@hotmail.com",
+      "phone": null,
+      "gender": "male",
+      "salary": 15000,
+      "departmentAndSkills": [
+        {
+          "department": "IT",
+          "skills": "C#",
+          "experience": "3",
+          "proficiency": "intermediate"
+        }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "email": "berkaytogay@hotmail.com",
+      "password": "123"
+    },
+    {
+      "email": "b@hotmail.com",
+      "password": "123",
+      "id": 2
+    },
+    {
+      "email": "adnan@hotmail.com",
+      "password": "123",
+      "id": 3
+    },
+    {
+      "email": "berkay@hotmail.com",
+      "password": "123",
+      "id": 4
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+<div class="container col-sm-11 mt-3">
+  <div class="mb-2">
+    <label>Search by Contact Preference : </label>
+    <input type="text" [(ngModel)]="search" class="ms-2">
+    <button class="btn btn-sm btn-primary ms-2" type="button" (click)="searchButtonClick()">Search</button>
+    <button class="btn btn-sm btn-secondary ms-2" type="button" (click)="clearSearchButtonClick()">Clear</button>
+  </div>
+  <hr style="width:500px;">
+  <div class="mb-2">
+    <label>Sort : </label>
+    <button class="btn btn-sm btn-primary ms-2" type="button" (click)="sortContactPreferenceByAscending()">Ascending</button>
+    <button class="btn btn-sm btn-secondary ms-2" type="button" (click)="sortContactPreferenceByDescanding()">Descanding</button>
+  </div>
+  <table class="table table-light table-bordered table-striped table-hover" *ngIf="employees && employees.length">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Contact Preference</th>
+        <th>Email/Phone</th>
+        <th class="text-center">Edit Action</th>
+        <th class="text-center">Delete Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- <tr *ngFor="let employee of employees|filter:'email''phone':'contactPreference'"> -->
+
+      <tr *ngFor="let employee of employees|filter:searchContactPreference:'contactPreference'">
+        <th>{{employee.fullName}}</th>
+        <th>{{employee.contactPreference}}</th>
+        <th *ngIf="employee.contactPreference==='email'">{{employee.email}}</th>
+        <th *ngIf="employee.contactPreference==='phone'">{{employee.phone}}</th>
+        <th class="text-center"><button class="btn btn-outline-success"
+            (click)="editButtonClick(employee.id)">Edit</button></th>
+        <th class="text-center"><button class="btn btn-outline-danger"
+            (click)="deleteButtonClick(employee.id)">Delete</button></th>
+      </tr>
+    </tbody>
+  </table>
+</div>

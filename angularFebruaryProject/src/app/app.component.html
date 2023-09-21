@@ -1,0 +1,88 @@
+<div class="container-fluid bg-dark" id="navbarContainer">
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark justify-content-center" id="navbarGeneral">
+    <ul class="nav navbar-nav" id="appNavbar">
+      <li class="nav-item mx-1">
+        <a [routerLink]="['/home']" routerLinkActive="active" class="navbar-brand">Home</a>
+      </li>
+      <li class="nav-item mx-1">
+        <a [routerLink]="['/employees/list']" routerLinkActive="active" class="navbar-brand">List</a>
+      </li>
+      <li class="nav-item mx-1">
+        <a [routerLink]="['/employees/create']" routerLinkActive="active" class="navbar-brand">Create</a>
+      </li>
+    </ul>
+
+    <ul class="nav navbar-nav" id="userNavbar">
+      <li class="nav-item" *ngIf="!loggedIn()">
+        <a [routerLink]="['/user/login']" routerLinkActive="active" class="navbar-brand">Login</a>
+      </li>
+      <li class="nav-item" *ngIf="!loggedIn()">
+        <a [routerLink]="['/user/register']" routerLinkActive="active" class="navbar-brand">Register</a>
+      </li>
+
+      <div *ngIf="loggedIn()" class="dropdown" dropdown>
+        <a href="#" class="dropdown-toggle navbar-brand btn btn-primary" dropdownToggle (click)="false">
+          <small>Welcome {{loggedInUserName}}</small></a>
+        <div class="dropdown-menu" *dropdownMenu>
+          <!--
+          <a href="#" class="dropdown-item">
+            <i class="fas fa-tachometer-alt"></i>View Dashboard
+          </a>
+          <a href="#" class="dropdown-item">
+            <i class="fas fa-user-circle"></i>My Profile
+          </a>
+          <a href="#" class="dropdown-item">
+            <i class="fas fa-key"></i>Change Password
+          </a>
+          -->
+          <a (click)="logout()" class="dropdown-item">
+            <i class="fas fa-sign-out-alt"></i>Logout
+          </a>
+        </div>
+      </div>
+
+      <!--
+      <li class="nav-item" *ngIf="loggedIn()">
+        <a (click)="logout()" class="navbar-brand">Logout</a>
+      </li>
+      ...
+            <div class="btn-group" dropdown>
+        <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                aria-controls="dropdown-basic">
+          Button dropdown <span class="caret"></span>
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+            role="menu" aria-labelledby="button-basic">
+          <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+          <li class="divider dropdown-divider"></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a>
+          </li>
+        </ul>
+        </div>
+        ...
+              <li *ngIf="loggedIn()" class="nav-item ms-5" dropdown>
+        <a href="#" class="dropdown-toggle navbar-brand" dropdownToggle (click)="false">Welcome</a>
+        <div class="dropdown-menu" *dropdownMenu>
+          <a href="#" class="dropdown-item navbar-brand">
+            <i class="fas fa-tachometer-alt"></i>View Dashboard
+          </a>
+          <a href="#" class="dropdown-item navbar-brand">
+            <i class="fas fa-user-circle"></i>My Profile
+          </a>
+          <a href="#" class="dropdown-item navbar-brand">
+            <i class="fas fa-key"></i>Change Password
+          </a>
+          <a (click)="logout()" class="dropdown-item navbar-brand">
+            <i class="fas fa-sign-out-alt"></i>Logout
+          </a>
+        </div>
+      </li>
+      -->
+    </ul>
+    <small class="text-white">{{Today|date:'fullDate':'GMT+3'}}</small>
+  </nav>
+</div>
+<router-outlet>
+</router-outlet>
